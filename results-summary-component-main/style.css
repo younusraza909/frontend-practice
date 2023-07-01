@@ -51,7 +51,7 @@
     --fs-700: 1.75rem;
     --fs-800: 2rem;
     --fs-900: 5rem;
-  }
+}
 
 *,
 *::after,
@@ -68,4 +68,19 @@ img,
 svg{
     display: block;
     max-width: 100%;
+}
+
+body{
+    font-family: var(--font-family-default);
+    font-size: var(--fs-400);
+    color: var(--clr-neutral-700);
+}
+
+
+@media (min-width:600px) {
+    body{
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+    }
 }
