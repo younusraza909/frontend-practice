@@ -36,13 +36,8 @@
         margin-right: 32px;
       }
 
-      &:hover {
-        color: $darkBlue;
-      }
-
       &::before {
         content: "";
-        display: block;
         position: absolute;
         height: 5px;
         left: 0;
@@ -54,6 +49,7 @@
       }
 
       &:hover {
+        color: $darkBlue;
         &::before {
           opacity: 1;
         }

@@ -87,12 +87,8 @@ button,
 .header__links a:not(:last-child) {
   margin-right: 32px;
 }
-.header__links a:hover {
-  color: hsl(233, 26%, 24%);
-}
 .header__links a::before {
   content: "";
-  display: block;
   position: absolute;
   height: 5px;
   left: 0;
@@ -101,6 +97,9 @@ button,
   background: linear-gradient(to right, hsl(136, 65%, 51%), hsl(192, 70%, 51%));
   opacity: 0;
   transition: opacity 300ms ease-in-out;
+}
+.header__links a:hover {
+  color: hsl(233, 26%, 24%);
 }
 .header__links a:hover::before {
   opacity: 1;
