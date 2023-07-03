@@ -47,6 +47,7 @@ button,
   border: 0;
   color: #fff;
   font-weight: 400;
+  font-size: 0.875rem;
 }
 
 .header nav {
@@ -64,8 +65,4 @@ button,
 .header__links a {
   font-size: 0.875rem;
   color: hsl(233, 8%, 62%);
-}
-.header__cta {
-  font-size: 0.875rem;
-  color: #fff;
 }/*# sourceMappingURL=style.css.map */
