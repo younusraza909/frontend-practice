@@ -50,6 +50,18 @@ button,
   font-size: 0.875rem;
 }
 
+@media (max-width: 63.9375em) {
+  .hide-for-mobile {
+    display: none;
+  }
+}
+
+@media (min-width: 64em) {
+  .hide-for-desktop {
+    display: none;
+  }
+}
+
 .header nav {
   padding: 24px;
 }
