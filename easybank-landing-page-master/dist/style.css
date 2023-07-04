@@ -62,6 +62,26 @@ button,
   }
 }
 
+.header .overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: 3.75rem;
+  background-image: linear-gradient(hsl(233, 26%, 24%), transparent);
+}
+.header.open .header__menu > span:first-child {
+  transform: rotate(45deg);
+}
+.header.open .header__menu > span:nth-child(2) {
+  opacity: 0;
+}
+.header.open .header__menu > span:last-child {
+  transform: rotate(-45deg);
+}
+.header.open .overlay {
+  display: block;
+  animation: fade-in 300ms ease-in-out forwards;
+}
 .header nav {
   padding: 1.0625rem 1.5rem;
 }
@@ -79,15 +99,6 @@ button,
 }
 .header__menu > span:not(:last-child) {
   margin-bottom: 5px;
-}
-.header__menu.open > span:first-child {
-  transform: rotate(45deg);
-}
-.header__menu.open > span:nth-child(2) {
-  opacity: 0;
-}
-.header__menu.open > span:last-child {
-  transform: rotate(-45deg);
 }
 .header__links a {
   position: relative;
@@ -122,9 +133,19 @@ button,
   opacity: 0.75;
 }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  top: 3.75rem;
-  background-image: linear-gradient(hsl(233, 26%, 24%), transparent);
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }/*# sourceMappingURL=style.css.map */
