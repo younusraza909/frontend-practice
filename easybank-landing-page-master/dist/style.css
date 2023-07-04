@@ -76,7 +76,7 @@ button,
   background-color: hsl(233, 26%, 24%);
 }
 .header__menu > span:not(:last-child) {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 .header__links a {
   position: relative;
