@@ -154,6 +154,10 @@ button,
   opacity: 0.75;
 }
 
+.has-fade {
+  visibility: hidden;
+}
+
 @keyframes fade-in {
   from {
     visibility: hidden;
