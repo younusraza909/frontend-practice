@@ -74,9 +74,20 @@ button,
   width: 26px;
   height: 2px;
   background-color: hsl(233, 26%, 24%);
+  transform-origin: 3px 1px;
+  transition: all 300ms ease-in-out;
 }
 .header__menu > span:not(:last-child) {
   margin-bottom: 5px;
+}
+.header__menu.open > span:first-child {
+  transform: rotate(45deg);
+}
+.header__menu.open > span:nth-child(2) {
+  opacity: 0;
+}
+.header__menu.open > span:last-child {
+  transform: rotate(-45deg);
 }
 .header__links a {
   position: relative;

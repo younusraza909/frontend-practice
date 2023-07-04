@@ -18,9 +18,26 @@
       width: 26px;
       height: 2px;
       background-color: $darkBlue;
+      transform-origin: 3px 1px;
+      transition: all 300ms ease-in-out;
 
       &:not(:last-child) {
         margin-bottom: 5px;
+      }
+    }
+
+    &.open {
+      > span {
+        &:first-child {
+          transform: rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          opacity: 0;
+        }
+        &:last-child {
+          transform: rotate(-45deg);
+        }
       }
     }
   }
