@@ -63,7 +63,6 @@ button,
 }
 
 .header .overlay {
-  display: none;
   position: fixed;
   inset: 0;
   top: 3.75rem;
@@ -80,7 +79,6 @@ button,
 }
 .header.open .overlay {
   display: block;
-  animation: fade-in 300ms ease-in-out forwards;
 }
 .header nav {
   padding: 1.0625rem 1.5rem;
@@ -135,17 +133,36 @@ button,
 
 @keyframes fade-in {
   from {
+    visibility: hidden;
+    opacity: 0;
+  }
+  1% {
+    visibility: visible;
     opacity: 0;
   }
   to {
+    visibility: visible;
     opacity: 1;
   }
 }
+.fade-in {
+  animation: fade-in 200ms ease-in-out forwards;
+}
+
 @keyframes fade-out {
   from {
+    visibility: visible;
     opacity: 1;
   }
-  to {
+  99% {
+    visibility: visible;
     opacity: 0;
   }
+  to {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+.fade-out {
+  animation: fade-out 200ms ease-in-out forwards;
 }/*# sourceMappingURL=style.css.map */

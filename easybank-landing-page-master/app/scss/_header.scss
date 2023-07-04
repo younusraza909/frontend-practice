@@ -2,7 +2,6 @@
   // Hamburger Open Styles
 
   .overlay {
-    display: none;
     position: fixed;
     inset: 0;
     top: 3.75rem;
@@ -26,7 +25,6 @@
     }
     .overlay {
       display: block;
-      animation: fade-in 300ms ease-in-out forwards;
     }
   }
 
