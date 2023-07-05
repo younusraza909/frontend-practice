@@ -340,6 +340,14 @@ p {
   }
 }
 
+.feature__intro {
+  margin-bottom: 3.75rem;
+}
+@media (min-width: 64em) {
+  .feature__intro {
+    width: 60%;
+  }
+}
 @media (min-width: 40em) {
   .feature__grid {
     display: flex;

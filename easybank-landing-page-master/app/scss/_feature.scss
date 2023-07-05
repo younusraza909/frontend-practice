@@ -1,4 +1,11 @@
 .feature {
+  &__intro {
+    margin-bottom: 3.75rem;
+    @include breakpoint-up(large) {
+      width: 60%;
+    }
+  }
+
   &__grid {
     @include breakpoint-up(medium) {
       display: flex;
