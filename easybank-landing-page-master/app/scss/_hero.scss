@@ -64,19 +64,6 @@
   }
   &__text {
     text-align: center;
-    h1 {
-      color: $darkBlue;
-      font-size: 1.875rem;
-      font-weight: 300;
-      line-height: 1.15;
-      margin-bottom: 2.25rem;
-      @include breakpoint-up(large) {
-        font-size: $font-xlg;
-      }
-    }
-    p {
-      line-height: 1.5;
-    }
 
     @include breakpoint-up(large) {
       flex: 2;

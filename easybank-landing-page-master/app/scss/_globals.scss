@@ -103,6 +103,35 @@ button,
   }
 }
 
+h1,
+h2,
+h3 {
+  margin-top: 0px;
+  font-weight: 300;
+  line-height: 1.15;
+  color: $darkBlue;
+}
+
+h2 {
+  margin-bottom: 1.5625rem;
+  @include breakpoint-up(large) {
+    font-size: 2.25rem;
+    margin-bottom: 2.25rem;
+  }
+}
+
+h1 {
+  font-size: 2.31rem;
+  margin-bottom: 2.25rem;
+  @include breakpoint-up(large) {
+    font-size: $font-xlg;
+  }
+}
+
+p {
+  line-height: 1.5;
+}
+
 // Visiblity
 .hide-for-mobile {
   // hide for tablet and mobile devices
