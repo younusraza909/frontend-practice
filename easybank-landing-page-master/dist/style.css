@@ -51,9 +51,17 @@ button,
   color: #fff;
   font-weight: 400;
   font-size: 0.875rem;
+  display: inline-block;
+  transition: opacity 300ms ease-in-out;
+}
+button:hover,
+.button:hover {
+  opacity: 0.75;
 }
 
 .container {
+  padding-top: 2.25rem;
+  padding-bottom: 2.25rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
@@ -150,12 +158,6 @@ button,
 }
 .header__links a:hover::before {
   opacity: 1;
-}
-.header__cta {
-  transition: opacity 300ms ease-in-out;
-}
-.header__cta:hover {
-  opacity: 0.75;
 }
 
 .has-fade {

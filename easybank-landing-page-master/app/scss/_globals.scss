@@ -57,10 +57,19 @@ button,
   color: #fff;
   font-weight: 400;
   font-size: $font-sm;
+  // we added display because anchor tag by default is inline so it is going into padding thing so we are adding display inline block
+  display: inline-block;
+  transition: opacity 300ms ease-in-out;
+
+  &:hover {
+    opacity: 0.75;
+  }
 }
 
 // spacing
 .container {
+  padding-top: 2.25rem;
+  padding-bottom: 2.25rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
