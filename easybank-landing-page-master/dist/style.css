@@ -246,6 +246,11 @@ button:hover,
   background-position: center center;
   min-height: 17.5rem;
 }
+@media (min-width: 40em) {
+  .hero__image {
+    min-height: 25rem;
+  }
+}
 .hero__image::after {
   content: "";
   background-image: url("../../images/image-mockups.png");
@@ -255,6 +260,20 @@ button:hover,
   position: absolute;
   width: 100%;
   height: 100%;
+}
+@media (min-width: 40em) {
+  .hero__image::after {
+    background-size: 52%;
+  }
+}
+@media (min-width: 64em) {
+  .hero__image::after {
+    width: 120%;
+    height: 122%;
+    background-size: 94%;
+    background-position: center 150%;
+    left: 22%;
+  }
 }
 @media (min-width: 64em) {
   .hero__image::before {
