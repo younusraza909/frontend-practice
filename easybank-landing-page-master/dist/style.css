@@ -320,4 +320,24 @@ button:hover,
     order: 1;
     text-align: left;
   }
+}
+
+@media (min-width: 40em) {
+  .feature__grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+.feature__item {
+  padding: 0.9375rem;
+}
+@media (min-width: 40em) {
+  .feature__item {
+    flex: 1 0 50%;
+  }
+}
+@media (min-width: 64em) {
+  .feature__item {
+    flex: 1;
+  }
 }/*# sourceMappingURL=style.css.map */
