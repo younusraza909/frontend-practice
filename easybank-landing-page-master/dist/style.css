@@ -18,6 +18,11 @@ body {
   font-weight: 300;
   color: hsl(233, 8%, 62%);
 }
+@media (min-width: 64em) {
+  body {
+    font-size: 1.125rem;
+  }
+}
 body.noscroll {
   overflow: hidden;
 }
@@ -60,9 +65,33 @@ button:hover,
 }
 
 .container {
-  padding-top: 2.25rem;
+  max-width: 69.375rem;
+  margin: auto;
+}
+.container--pall {
   padding-bottom: 2.25rem;
+  padding-top: 2.25rem;
   padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.container--py {
+  padding-bottom: 2.25rem;
+  padding-top: 2.25rem;
+}
+.container--px {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.container--pt {
+  padding-top: 2.25rem;
+}
+.container--pb {
+  padding-bottom: 2.25rem;
+}
+.container--pl {
+  padding-left: 1.5rem;
+}
+.container--pr {
   padding-right: 1.5rem;
 }
 
@@ -200,6 +229,12 @@ button:hover,
   animation: fade-out 200ms ease-in-out forwards;
 }
 
+@media (min-width: 64em) {
+  .hero {
+    display: flex;
+    align-items: center;
+  }
+}
 .hero__image {
   position: relative;
   background-image: url("../../images/bg-intro-mobile.svg");
@@ -218,6 +253,15 @@ button:hover,
   width: 100%;
   height: 100%;
 }
+@media (min-width: 64em) {
+  .hero__image {
+    flex: 3;
+    order: 2;
+    min-height: 41rem;
+    background-image: url("../../images/bg-intro-desktop.svg");
+    background-position: left center;
+  }
+}
 .hero__text {
   text-align: center;
 }
@@ -228,6 +272,18 @@ button:hover,
   line-height: 1.15;
   margin-bottom: 2.25rem;
 }
+@media (min-width: 64em) {
+  .hero__text h1 {
+    font-size: 3.25rem;
+  }
+}
 .hero__text p {
   line-height: 1.5;
+}
+@media (min-width: 64em) {
+  .hero__text {
+    flex: 2;
+    order: 1;
+    text-align: left;
+  }
 }/*# sourceMappingURL=style.css.map */
