@@ -466,4 +466,12 @@ p {
 }
 .article__description {
   font-size: 0.8125rem;
+}
+
+.footer {
+  background-color: hsl(233, 26%, 24%);
+  color: hsl(0, 0%, 100%);
+}
+.footer a {
+  color: hsl(0, 0%, 100%);
 }/*# sourceMappingURL=style.css.map */
