@@ -17,7 +17,6 @@ body {
   font-size: 1.125rem;
   font-weight: 300;
   color: hsl(233, 8%, 62%);
-  min-height: 300vh;
   overflow-x: hidden;
 }
 @media (min-width: 64em) {
@@ -50,20 +49,34 @@ a:hover {
 
 button,
 .button {
+  position: relative;
+  display: inline-block;
   padding: 0.875rem 2.1875rem;
+  background-image: linear-gradient(to right, hsl(136, 65%, 51%), hsl(192, 70%, 51%));
+  border: 0;
   border-radius: 50px;
   cursor: pointer;
-  background: linear-gradient(to right, hsl(136, 65%, 51%), hsl(192, 70%, 51%));
-  border: 0;
-  color: #fff;
+  color: hsl(0, 0%, 100%);
   font-weight: 400;
   font-size: 0.875rem;
-  display: inline-block;
   transition: opacity 300ms ease-in-out;
+  overflow: hidden;
 }
-button:hover,
-.button:hover {
-  opacity: 0.75;
+button::before,
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.25);
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+button:hover::before,
+.button:hover::before {
+  opacity: 1;
 }
 
 .container {
@@ -475,35 +488,51 @@ p {
   text-align: center;
 }
 @media (min-width: 64em) {
-  .footer {
+  .footer .container {
     display: grid;
-    grid-template-columns: repeat(1, fr) 2fr;
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-areas: "logo links1 links2 cta" "social links1 link2 cta";
+    grid-template-columns: 2fr 1fr 1fr 3fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: "logo links1 links2 cta" "social links1 links2 copyright";
+    gap: 1rem;
+    justify-items: start;
   }
 }
 .footer a {
   color: hsl(0, 0%, 100%);
 }
 .footer__logo {
-  margin-bottom: 1.875rem;
   display: inline-block;
+}
+@media (max-width: 63.9375em) {
+  .footer__logo {
+    margin-bottom: 1.875rem;
+  }
 }
 @media (min-width: 64em) {
   .footer__logo {
     grid-area: logo;
   }
 }
-.footer__social {
-  margin-bottom: 1.875rem;
+@media (max-width: 63.9375em) {
+  .footer__social {
+    margin-bottom: 1.875rem;
+  }
 }
 @media (min-width: 64em) {
   .footer__social {
     grid-area: social;
+    align-self: end;
   }
 }
 .footer__social a {
   display: inline-block;
+  height: 1.25rem;
+}
+.footer__social a svg path {
+  transition: fill 150ms ease-in-out;
+}
+.footer__social a:hover svg path {
+  fill: hsl(136, 65%, 51%);
 }
 .footer__social a:not(:last-child) {
   margin-right: 1rem;
@@ -512,26 +541,56 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 2;
+  font-size: 0.9375rem;
+}
+@media (min-width: 64em) {
+  .footer__links {
+    justify-content: space-between;
+    align-items: start;
+  }
 }
 @media (min-width: 64em) {
   .footer__links.col1 {
     grid-area: links1;
   }
 }
-.footer__links.col2 {
-  margin-bottom: 1.875rem;
+@media (max-width: 63.9375em) {
+  .footer__links.col2 {
+    margin-bottom: 1.875rem;
+  }
 }
 @media (min-width: 64em) {
   .footer__links.col2 {
     grid-area: links2;
   }
 }
+.footer__links a {
+  line-height: 2.25;
+  transition: color 150ms ease-in-out;
+}
+.footer__links a:hover {
+  color: hsl(136, 65%, 51%);
+}
 @media (min-width: 64em) {
   .footer__cta {
     grid-area: cta;
+    text-align: right;
+    justify-self: end;
   }
 }
-.footer__cta a.button {
-  margin-bottom: 1.875rem;
+@media (max-width: 63.9375em) {
+  .footer__cta a.button {
+    margin-bottom: 1.875rem;
+  }
+}
+.footer__copyright {
+  font-size: 0.8125rem;
+  color: hsl(233, 8%, 62%);
+}
+@media (min-width: 64em) {
+  .footer__copyright {
+    grid-area: copyright;
+    align-self: end;
+    justify-self: end;
+  }
 }/*# sourceMappingURL=style.css.map */

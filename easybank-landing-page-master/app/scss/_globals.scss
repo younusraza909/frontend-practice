@@ -17,7 +17,6 @@ body {
   font-size: $font-med;
   font-weight: 300;
   color: $grayishBlue;
-  min-height: 300vh;
   overflow-x: hidden;
   @include breakpoint-up(large) {
     font-size: $font-med;
@@ -54,23 +53,35 @@ a:hover {
 // Buttons
 button,
 .button {
+  position: relative;
+  display: inline-block;
   padding: 0.875rem 2.1875rem;
+  background-image: linear-gradient(to right, $limeGreen, $brightCyan);
+  border: 0;
   border-radius: 50px;
   cursor: pointer;
-  background: linear-gradient(to right, $limeGreen, $brightCyan);
-  border: 0;
-  color: #fff;
+  color: $white;
   font-weight: 400;
   font-size: $font-sm;
-  // we added display because anchor tag by default is inline so it is going into padding thing so we are adding display inline block
-  display: inline-block;
   transition: opacity 300ms ease-in-out;
+  overflow: hidden;
 
-  &:hover {
-    opacity: 0.75;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.25);
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+  }
+
+  &:hover::before {
+    opacity: 1;
   }
 }
-
 // spacing
 .container {
   max-width: 69.375rem;
