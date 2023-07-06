@@ -18,6 +18,7 @@ body {
   font-weight: 300;
   color: hsl(233, 8%, 62%);
   min-height: 300vh;
+  overflow-x: hidden;
 }
 @media (min-width: 64em) {
   body {
