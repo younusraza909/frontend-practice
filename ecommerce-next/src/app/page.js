@@ -2,8 +2,8 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main className='max-w-7xl mx-auto'>
-      <nav className='flex items-center justify-between py-10  border-b-[1px]'>
+    <main className='max-w-7xl mx-auto max-xl:max-w-5xl max-lg:max-w-3xl'>
+      <nav className='flex items-center justify-between py-10 border-b-[1px]'>
         <div className='left-nav flex items-center'>
           <Image
             src='./assets/images/logo.svg'
