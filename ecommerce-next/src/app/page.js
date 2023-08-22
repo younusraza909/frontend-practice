@@ -2,18 +2,25 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main className='max-w-7xl mx-auto max-xl:max-w-5xl max-lg:max-w-3xl'>
-      <nav className='flex items-center justify-between py-10 border-b-[1px]'>
+    <main className='max-w-7xl mx-auto max-xl:max-w-5xl max-lg:max-w-3xl max-md:px-10'>
+      <nav className='flex items-center justify-between py-10 border-b-[1px]  max-md:border-none'>
         <div className='left-nav flex items-center'>
+          <Image
+            src='./assets/images/icon-menu.svg'
+            width={20}
+            height={20}
+            alt='Menu Icon'
+            className='mr-10 hidden max-md:block'
+          />
           <Image
             src='./assets/images/logo.svg'
             width={150}
             height={150}
             alt='Logo Sneakers'
-            className='mr-10'
+            className='mr-10 '
           />
 
-          <div className='navlinks'>
+          <div className='navlinks max-md:hidden'>
             <ul className='flex items-center justify-between text-[color:var(--grayish-blue)] text-md tracking-tighter'>
               <li className='mx-2'>Collections</li>
               <li className='mx-2'>Men</li>
