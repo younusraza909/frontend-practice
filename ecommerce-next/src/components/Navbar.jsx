@@ -18,7 +18,7 @@ function Navbar({ showMobileNav, handleToggleNav }) {
           width={150}
           height={150}
           alt='Logo Sneakers'
-          className='mr-10 '
+          className='mr-10'
         />
 
         <div className='navlinks max-md:hidden'>
@@ -45,27 +45,30 @@ function Navbar({ showMobileNav, handleToggleNav }) {
       </div>
 
       {/* Mobile Navigation Sidebar */}
-      {showMobileNav && (
-        <div className='bg-white z-30 h-full absolute top-0 left-0 bottom-0 w-[60%]'>
-          <div className='w-4 h-4 m-10  relative text-[color:var(--primary-color)]'>
-            <Image
-              src='/assets/images/icon-close.svg'
-              fill
-              alt='Close Icon'
-              className='cursor-pointer'
-              onClick={() => handleToggleNav(false)}
-            />
-          </div>
 
-          <ul className='m-10 flex items-start gap-10 font-[700] text-xl flex-col'>
-            <li>Collections</li>
-            <li>Men</li>
-            <li>Women</li>
-            <li>About</li>
-            <li>Contact</li>
-          </ul>
+      <div
+        className={`bg-white z-30 h-full absolute top-0  bottom-0 w-[60%] ${
+          showMobileNav ? 'left-0' : '-left-full'
+        } transition-left duration-500 ease-in-out`}
+      >
+        <div className='w-4 h-4 m-10  relative text-[color:var(--primary-color)]'>
+          <Image
+            src='/assets/images/icon-close.svg'
+            fill
+            alt='Close Icon'
+            className='cursor-pointer'
+            onClick={() => handleToggleNav(false)}
+          />
         </div>
-      )}
+
+        <ul className='m-10 flex items-start gap-10 font-[700] text-xl flex-col'>
+          <li>Collections</li>
+          <li>Men</li>
+          <li>Women</li>
+          <li>About</li>
+          <li>Contact</li>
+        </ul>
+      </div>
     </nav>
   );
 }
