@@ -10,7 +10,7 @@ export default function Home() {
       <div
         className={`bg-[#000] bg-opacity-50 z-10 w-full h-full absolute inset-0 ${
           mobileNav ? 'opacity-100 visible' : 'opacity-0 invisible'
-        } transition duration-500 ease-in-out`}
+        } transition duration-500 ease-in-out md:-left-full`}
       />
 
       <Navbar

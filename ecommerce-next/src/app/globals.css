@@ -28,3 +28,23 @@ body {
 li {
   cursor: pointer;
 }
+
+.desktop-navlinks ul li {
+  position: relative;
+}
+
+.desktop-navlinks ul li:hover::before {
+  opacity: 1;
+}
+
+.desktop-navlinks ul li::before {
+  content: '';
+  position: absolute;
+  height: 5px;
+  left: 0;
+  right: 0;
+  bottom: -53px;
+  background: var(--primary-color);
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}

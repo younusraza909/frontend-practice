@@ -21,13 +21,13 @@ function Navbar({ showMobileNav, handleToggleNav }) {
           className='mr-10'
         />
 
-        <div className='navlinks max-md:hidden'>
-          <ul className='flex items-center justify-between text-[color:var(--grayish-blue)] text-md tracking-tighter'>
-            <li className='mx-2'>Collections</li>
-            <li className='mx-2'>Men</li>
-            <li className='mx-2'>Women</li>
-            <li className='mx-2'>About</li>
-            <li className='mx-2'>Contact</li>
+        <div className='desktop-navlinks max-md:hidden'>
+          <ul className='flex items-center gap-10  max-lg:gap-4 justify-between text-[color:var(--grayish-blue)] text-md tracking-tighter'>
+            <li>Collections</li>
+            <li>Men</li>
+            <li>Women</li>
+            <li>About</li>
+            <li>Contact</li>
           </ul>
         </div>
       </div>
@@ -49,7 +49,7 @@ function Navbar({ showMobileNav, handleToggleNav }) {
       <div
         className={`bg-white z-30 h-full absolute top-0  bottom-0 w-[60%] ${
           showMobileNav ? 'left-0' : '-left-full'
-        } transition-left duration-500 ease-in-out`}
+        } transition-left duration-500 ease-in-out md:-left-full`}
       >
         <div className='w-4 h-4 m-10  relative text-[color:var(--primary-color)]'>
           <Image
