@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 function Navbar({ showMobileNav, handleToggleNav }) {
   return (
-    <nav className='flex items-center justify-between py-10 border-b-[1px]  max-md:border-none'>
+    <nav className='flex items-center justify-between py-10 border-b-[1px] max-md:px-10  max-md:border-none'>
       <div className='left-nav flex items-center'>
         <Image
           src='./assets/images/icon-menu.svg'
