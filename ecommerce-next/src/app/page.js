@@ -19,18 +19,18 @@ export default function Home() {
         handleToggleNav={(val) => setMobileNav(val)}
       />
 
-      <section className='product max-lg:flex-col flex items-center max-xl:gap-6 gap-20 my-20 mx-10 max-md:my-0 max-md:mx-0'>
+      <section className='product  product-main-section'>
         <div className='image-showcase flex-1 w-full'>
-          <div className='main-product-image relative h-[450px] w-[90%] max-md:w-[100%]'>
+          <div className='main-product-image'>
             <Image src='/assets/images/image-product-1.jpg' fill />
-            <div className='hidden max-md:block cursor-pointer z-10 absolute top-[50%] left-10 bg-white p-3 rounded-[100%]'>
+            <div className='slider-btn left-10'>
               <Image
                 src='/assets/images/icon-previous.svg'
                 width={12}
                 height={12}
               />
             </div>
-            <div className='hidden max-md:block cursor-pointer z-10 absolute top-[50%] right-10 bg-white p-3 rounded-[100%]'>
+            <div className='slider-btn right-10'>
               <Image
                 src='/assets/images/icon-next.svg'
                 width={12}
@@ -39,7 +39,7 @@ export default function Home() {
             </div>
           </div>
           {/* Only Showing on Desktop Size Devices */}
-          <div className='product-images-slider max-md:hidden mt-5 flex gap-4 w-[90%] items-center justify-between'>
+          <div className='product-images-slider'>
             <div className='w-32 h-32 relative'>
               <Image
                 src='/assets/images/image-product-1-thumbnail.jpg'

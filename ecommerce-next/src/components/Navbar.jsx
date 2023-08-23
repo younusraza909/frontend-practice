@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 function Navbar({ showMobileNav, handleToggleNav }) {
   return (
-    <nav className='flex items-center justify-between py-10 border-b-[1px] max-md:px-10  max-md:border-none'>
+    <nav className='navbar'>
       <div className='left-nav flex items-center'>
         <Image
           src='./assets/images/icon-menu.svg'
@@ -21,8 +21,8 @@ function Navbar({ showMobileNav, handleToggleNav }) {
           className='mr-10'
         />
 
-        <div className='desktop-navlinks max-md:hidden'>
-          <ul className='flex items-center gap-10  max-lg:gap-4 justify-between text-[color:var(--grayish-blue)] text-md tracking-tighter'>
+        <div className='max-md:hidden'>
+          <ul className='desktop-navlinks'>
             <li>Collections</li>
             <li>Men</li>
             <li>Women</li>
@@ -61,7 +61,7 @@ function Navbar({ showMobileNav, handleToggleNav }) {
           />
         </div>
 
-        <ul className='m-10 flex items-start gap-10 font-[700] text-xl flex-col'>
+        <ul className='mobile-navlinks'>
           <li>Collections</li>
           <li>Men</li>
           <li>Women</li>
