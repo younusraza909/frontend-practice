@@ -1,6 +1,7 @@
 'use client';
 
 import Navbar from '@/components/Navbar';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Home() {
@@ -17,6 +18,91 @@ export default function Home() {
         showMobileNav={mobileNav}
         handleToggleNav={(val) => setMobileNav(val)}
       />
+
+      <section className='product flex items-center gap-20 my-20 mx-10'>
+        <div className='image-showcase flex-1 '>
+          <div className='main-product-image relative h-[450px] w-[90%]  rounded-xl overflow-hidden'>
+            <Image src='/assets/images/image-product-1.jpg' fill />
+          </div>
+          <div className='product-images-slider mt-5 flex gap-4 w-[90%] items-center justify-between'>
+            <Image
+              src='/assets/images/image-product-1-thumbnail.jpg'
+              width={120}
+              height={120}
+              className='rounded-xl'
+            />
+            <Image
+              src='/assets/images/image-product-2-thumbnail.jpg'
+              width={120}
+              height={120}
+              className='rounded-xl'
+            />
+            <Image
+              src='/assets/images/image-product-3-thumbnail.jpg'
+              width={120}
+              height={120}
+              className='rounded-xl'
+            />
+            <Image
+              src='/assets/images/image-product-4-thumbnail.jpg'
+              width={120}
+              height={120}
+              className='rounded-xl'
+            />
+          </div>
+        </div>
+        <div className='product-info flex-1'>
+          <h6 className='text-[color:var(--primary-color)] font-semibold my-4'>
+            SNEAKER COMPANY
+          </h6>
+          <h1 className='font-semibold text-5xl tracking-wide mb-10'>
+            Fall Limited Edition Sneakers
+          </h1>
+          <p className='text-[color:var(--grayish-blue)] leading-7 mb-5'>
+            These low-profile sneakers are your perfect causual wear
+            companion.Featuring a durable rubber outer sole, they'll withstand
+            everything the weather can offer.
+          </p>
+          <div className='price-box flex items-start gap-5 my-10'>
+            <div className='prices'>
+              <p className='text-2xl font-[700] tracking-wider'>$125.00</p>
+              <p className='text-[color:var(--grayish-blue)] line-through'>
+                $250.00
+              </p>
+            </div>
+            <div className='discount w-auto p-1 rounded-md bg-[color:var(--primary-color-light)] text-[color:var(--primary-color)] '>
+              <p className='font-bold text-sm'>50%</p>
+            </div>
+          </div>
+          <div className='cart flex gap-16 my-5'>
+            <div className='cart-counter px-2 py-3 rounded-md flex  items-center gap-10 bg-[color:var(--light-grayish-blue)]'>
+              <div className='counter-btn '>
+                <p className='decrease-counter-btn text-lg font-bold text-[color:var(--primary-color)] cursor-pointer'>
+                  -
+                </p>
+              </div>
+              <p className='counter-value text-sm font-bold'>0</p>
+              <div className='counter-btn '>
+                <p className='increase-counter-btn  text-lg font-bold text-[color:var(--primary-color)] cursor-pointer'>
+                  +
+                </p>
+              </div>
+            </div>
+            <div className=' cursor-pointer card-cta-btn bg-[color:var(--primary-color)] text-white px-10 rounded-lg py-3 flex items-center gap-11'>
+              <div className='relative w-4 h-4'>
+                <svg width='22' height='20' xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    d='M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z'
+                    fill='#fff'
+                    fill-rule='nonzero'
+                  />
+                </svg>
+              </div>
+              <p className='text-sm font-bold'>Add to card</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
