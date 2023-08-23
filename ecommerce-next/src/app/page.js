@@ -25,30 +25,34 @@ export default function Home() {
             <Image src='/assets/images/image-product-1.jpg' fill />
           </div>
           <div className='product-images-slider mt-5 flex gap-4 w-[90%] items-center justify-between'>
-            <Image
-              src='/assets/images/image-product-1-thumbnail.jpg'
-              width={120}
-              height={120}
-              className='rounded-xl'
-            />
-            <Image
-              src='/assets/images/image-product-2-thumbnail.jpg'
-              width={120}
-              height={120}
-              className='rounded-xl'
-            />
-            <Image
-              src='/assets/images/image-product-3-thumbnail.jpg'
-              width={120}
-              height={120}
-              className='rounded-xl'
-            />
-            <Image
-              src='/assets/images/image-product-4-thumbnail.jpg'
-              width={120}
-              height={120}
-              className='rounded-xl'
-            />
+            <div className='w-32 h-32 relative'>
+              <Image
+                src='/assets/images/image-product-1-thumbnail.jpg'
+                fill
+                className='rounded-xl'
+              />
+            </div>
+            <div className='w-32 h-32 relative'>
+              <Image
+                src='/assets/images/image-product-2-thumbnail.jpg'
+                fill
+                className='rounded-xl'
+              />
+            </div>
+            <div className='w-32 h-32 relative'>
+              <Image
+                src='/assets/images/image-product-3-thumbnail.jpg'
+                fill
+                className='rounded-xl'
+              />
+            </div>
+            <div className='w-32 h-32 relative'>
+              <Image
+                src='/assets/images/image-product-4-thumbnail.jpg'
+                fill
+                className='rounded-xl'
+              />
+            </div>
           </div>
         </div>
         <div className='product-info flex-1'>
