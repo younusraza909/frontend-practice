@@ -76,4 +76,11 @@ li {
   .mobile-navlinks {
     @apply m-10 flex items-start gap-10 font-[700] text-xl flex-col;
   }
+
+  .desktop-image-slider-active {
+    @apply active:border-4 active:opacity-[0.25] cursor-pointer border-4 border-transparent active:border-[color:var(--primary-color)];
+  }
+  .counter-btn {
+    @apply active:opacity-[0.25];
+  }
 }

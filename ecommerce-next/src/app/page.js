@@ -23,7 +23,7 @@ export default function Home() {
 
       <section className='product  product-main-section'>
         <div className='image-showcase flex-1 w-full'>
-          <div className='main-product-image'>
+          <div className='main-product-image cursor-pointer'>
             <Image src='/assets/images/image-product-1.jpg' fill />
             <div className='slider-btn left-10'>
               <Image
@@ -46,28 +46,28 @@ export default function Home() {
               <Image
                 src='/assets/images/image-product-1-thumbnail.jpg'
                 fill
-                className='rounded-xl'
+                className='rounded-xl desktop-image-slider-active'
               />
             </div>
             <div className='w-32 h-32 relative'>
               <Image
                 src='/assets/images/image-product-2-thumbnail.jpg'
                 fill
-                className='rounded-xl'
+                className='rounded-xl desktop-image-slider-active'
               />
             </div>
             <div className='w-32 h-32 relative'>
               <Image
                 src='/assets/images/image-product-3-thumbnail.jpg'
                 fill
-                className='rounded-xl'
+                className='rounded-xl desktop-image-slider-active'
               />
             </div>
             <div className='w-32 h-32 relative'>
               <Image
                 src='/assets/images/image-product-4-thumbnail.jpg'
                 fill
-                className='rounded-xl'
+                className='rounded-xl desktop-image-slider-active'
               />
             </div>
           </div>
@@ -112,7 +112,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className=' cursor-pointer card-cta-btn bg-[color:var(--primary-color)] text-white px-10 rounded-lg py-3 max-xl:py-0 flex items-center  justify-between max-md:justify-center max-md:py-4 gap-11'>
+            <div className='active:opacity-[0.25] cursor-pointer card-cta-btn bg-[color:var(--primary-color)] text-white px-10 rounded-lg py-3 max-xl:py-0 flex items-center  justify-between max-md:justify-center max-md:py-4 gap-11'>
               <div className=''>
                 <svg width='22' height='20' xmlns='http://www.w3.org/2000/svg'>
                   <path
@@ -122,7 +122,7 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <p className='whitespace-nowrap text-sm font-bold max-xl:text-xs max-md:text-lg'>
+              <p className='whitespace-nowrap text-sm font-bold max-xl:text-xs max-md:text-lg '>
                 Add to card
               </p>
             </div>
@@ -159,7 +159,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className=' cursor-pointer bg-[color:var(--primary-color)] text-white px-10 rounded-lg py-3  w-[90%] mx-auto mt-7 mb-10 max-md:py-5'>
+            <div className='active:opacity-[0.25] cursor-pointer bg-[color:var(--primary-color)] text-white px-10 rounded-lg py-3  w-[90%] mx-auto mt-7 mb-10 max-md:py-5'>
               <p className='whitespace-nowrap text-sm font-bold max-xl:text-xs max-md:text-lg'>
                 Checkout
               </p>
