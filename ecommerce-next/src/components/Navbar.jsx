@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 
-function Navbar({ showMobileNav, handleToggleNav }) {
+function Navbar({ showMobileNav, handleToggleCart, handleToggleNav }) {
   return (
     <nav className='navbar'>
       <div className='left-nav flex items-center'>
@@ -31,16 +31,24 @@ function Navbar({ showMobileNav, handleToggleNav }) {
           </ul>
         </div>
       </div>
-      <div className='right-nav flex items-center gap-16 max-md:gap-10'>
-        <div className='w-6 h-6 rounded-full relative'>
-          <Image src='./assets/images/icon-cart.svg' fill alt='Cart Logo' />
-        </div>
-        <div className='w-12 h-12 max-md:w-8 max-md:h-8 rounded-full relative'>
-          <Image
-            src='/assets/images/image-avatar.png'
-            fill
-            alt='Profile Logo Avatar'
-          />
+      <div className='relative'>
+        <div className='right-nav flex items-center gap-16 max-md:gap-10'>
+          <div className='w-6 h-6 rounded-full relative'>
+            <Image
+              src='./assets/images/icon-cart.svg'
+              fill
+              alt='Cart Logo'
+              className='cursor-pointer '
+              onClick={handleToggleCart}
+            />
+          </div>
+          <div className='w-12 h-12 max-md:w-8 max-md:h-8 rounded-full relative'>
+            <Image
+              src='/assets/images/image-avatar.png'
+              fill
+              alt='Profile Logo Avatar'
+            />
+          </div>
         </div>
       </div>
 

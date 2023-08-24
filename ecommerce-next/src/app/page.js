@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 export default function Home() {
   const [mobileNav, setMobileNav] = useState(false);
+  const [cart, setCart] = useState(false);
   return (
     <main className='max-w-7xl mx-auto max-xl:max-w-5xl max-lg:max-w-3xl '>
       <div
@@ -17,6 +18,7 @@ export default function Home() {
       <Navbar
         showMobileNav={mobileNav}
         handleToggleNav={(val) => setMobileNav(val)}
+        handleToggleCart={() => setCart(!cart)}
       />
 
       <section className='product  product-main-section'>
@@ -127,6 +129,44 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Cart List */}
+      {cart && (
+        <div className='absolute bg-white shadow-lg z-10 w-96 top-20 right-36 mt-5 rounded-xl max-2xl:right-10 max-md:w-[90%] max-md:mx-auto max-md:top-24 max-md:h-[45%]'>
+          <div className='font-bold text-lg px-2 py-4 border-b-[1px]'>
+            <p>Cart</p>
+          </div>
+
+          <div className='justify-between flex flex-col h-[90%] '>
+            <div className='cart-items-list flex flex-col  gap-10 w-[90%] mx-auto'>
+              <div className='cart-item flex mt-3 px-2 gap-3  justify-between items-center'>
+                <Image
+                  src='/assets/images/image-product-1-thumbnail.jpg'
+                  height={50}
+                  width={50}
+                  className='rounded-xl'
+                />
+                <p className=' text-[color:var(--grayish-blue)]'>
+                  Fall Limited Edition Sneakers $125.00 x 3{' '}
+                  <strong className='text-black'>$375.00</strong>
+                </p>
+                <Image
+                  src='/assets/images/icon-delete.svg'
+                  height={15}
+                  width={15}
+                  className='cursor-pointer'
+                />
+              </div>
+            </div>
+
+            <div className=' cursor-pointer bg-[color:var(--primary-color)] text-white px-10 rounded-lg py-3  w-[90%] mx-auto mt-7 mb-10 max-md:py-5'>
+              <p className='whitespace-nowrap text-sm font-bold max-xl:text-xs max-md:text-lg'>
+                Checkout
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
