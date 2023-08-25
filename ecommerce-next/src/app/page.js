@@ -7,8 +7,54 @@ import { useState } from 'react';
 export default function Home() {
   const [mobileNav, setMobileNav] = useState(false);
   const [cart, setCart] = useState(false);
+  const [showGallery, setShowGallery] = useState(false);
+
+  const [imageGallery, setImageGallery] = useState([
+    {
+      jpg: '/assets/images/image-product-1.jpg',
+      thumbnail: '/assets/images/image-product-1-thumbnail.jpg',
+      id: 1,
+    },
+    {
+      jpg: '/assets/images/image-product-2.jpg',
+      thumbnail: '/assets/images/image-product-2-thumbnail.jpg',
+      id: 2,
+    },
+    {
+      jpg: '/assets/images/image-product-3.jpg',
+      thumbnail: '/assets/images/image-product-3-thumbnail.jpg',
+      id: 3,
+    },
+    {
+      jpg: '/assets/images/image-product-4.jpg',
+      thumbnail: '/assets/images/image-product-4-thumbnail.jpg',
+      id: 4,
+    },
+  ]);
+
+  const handleImageClick = (imageId) => {
+    let copy = [...imageGallery];
+
+    let index = imageGallery.findIndex((img) => img.id === imageId);
+
+    const [movedImage] = copy.splice(index, 1);
+
+    let newArrayForImages = copy.unshift(movedImage);
+
+    setImageGallery(copy);
+  };
+
+  const handleMoveSlider = (direction) => {
+    const copy = [...imageGallery];
+    const movedImage = direction === 'next' ? copy.shift() : copy.pop();
+
+    direction === 'next' ? copy.push(movedImage) : copy.unshift(movedImage);
+
+    setImageGallery(copy);
+  };
+
   return (
-    <main className='max-w-7xl mx-auto max-xl:max-w-5xl max-lg:max-w-3xl '>
+    <main className='max-w-7xl  mx-auto max-xl:max-w-5xl max-lg:max-w-3xl '>
       <div
         className={`bg-[#000] bg-opacity-50 z-10 w-full h-full absolute inset-0 ${
           mobileNav ? 'opacity-100 visible' : 'opacity-0 invisible'
@@ -42,34 +88,21 @@ export default function Home() {
           </div>
           {/* Only Showing on Desktop Size Devices */}
           <div className='product-images-slider'>
-            <div className='w-32 h-32 relative'>
-              <Image
-                src='/assets/images/image-product-1-thumbnail.jpg'
-                fill
-                className='rounded-xl desktop-image-slider-active'
-              />
-            </div>
-            <div className='w-32 h-32 relative'>
-              <Image
-                src='/assets/images/image-product-2-thumbnail.jpg'
-                fill
-                className='rounded-xl desktop-image-slider-active'
-              />
-            </div>
-            <div className='w-32 h-32 relative'>
-              <Image
-                src='/assets/images/image-product-3-thumbnail.jpg'
-                fill
-                className='rounded-xl desktop-image-slider-active'
-              />
-            </div>
-            <div className='w-32 h-32 relative'>
-              <Image
-                src='/assets/images/image-product-4-thumbnail.jpg'
-                fill
-                className='rounded-xl desktop-image-slider-active'
-              />
-            </div>
+            {imageGallery?.map((image) => {
+              return (
+                <div className='w-24 h-24 relative'>
+                  <Image
+                    src={image.thumbnail}
+                    fill
+                    onClick={() => {
+                      setShowGallery(true);
+                    }}
+                    alt='=Slider Gallery Image'
+                    className='rounded-xl desktop-image-slider-active'
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className='product-info flex-1 max-md:px-10'>
@@ -130,6 +163,68 @@ export default function Home() {
         </div>
       </section>
 
+      {/* JS Gallery Component */}
+      {showGallery && (
+        <section className='overlay-gallery overflow-hidden max-md:hidden flex items-center justify-center absolute inset-0 bg-black bg-opacity-90 '>
+          <svg
+            onClick={() => {
+              setShowGallery(false);
+            }}
+            className='cursor-pointer absolute right-[20%] top-[10%]'
+            width='16'
+            height='18'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <path
+              d='m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z'
+              fill='#fff'
+              fillRule='evenodd'
+            />
+          </svg>
+          <div className=' flex flex-col gap-5 items-center w-[35%] mx-auto'>
+            <div className='w-full h-[500px] relative  cursor-pointer'>
+              <Image src={imageGallery[0]?.jpg} fill alt='Main Gallery Image' />
+              <div
+                className='slider-btn-gallery -left-5'
+                onClick={() => handleMoveSlider('prev')}
+              >
+                <Image
+                  src='/assets/images/icon-previous.svg'
+                  width={12}
+                  height={12}
+                />
+              </div>
+              <div
+                className='slider-btn-gallery -right-5'
+                onClick={() => handleMoveSlider('next')}
+              >
+                <Image
+                  src='/assets/images/icon-next.svg'
+                  width={12}
+                  height={12}
+                />
+              </div>
+            </div>
+            <div className='flex items-center justify-between w-[80%]'>
+              {imageGallery?.map((image) => {
+                return (
+                  <div className='w-24 h-24 relative'>
+                    <Image
+                      src={image.thumbnail}
+                      fill
+                      onClick={() => {
+                        handleImageClick(image.id);
+                      }}
+                      alt='=Slider Gallery Image'
+                      className='rounded-xl desktop-image-slider-active'
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
       {/* Cart List */}
       {cart && (
         <div className='absolute bg-white shadow-lg z-10 w-96 top-20 right-36 mt-5 rounded-xl max-2xl:right-10 max-md:w-[90%] max-md:mx-auto max-md:top-24 max-md:h-[45%]'>
