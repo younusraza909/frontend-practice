@@ -34,3 +34,27 @@ body {
   background: url('../../public/images/bg-sidebar-desktop.svg') no-repeat
     center/cover;
 }
+
+.primary-heading {
+  @apply text-[35px] font-bold tracking-wide text-[color:var(--marine-blue)];
+}
+
+.sub-text {
+  @apply text-lg tracking-wider text-[color:var(--cool-gray)] mb-10;
+}
+
+.input-label {
+  @apply block mb-2 text-[color:var(--marine-blue)] text-sm;
+}
+
+.input {
+  @apply w-full cursor-pointer p-2 font-bold border border-gray-300 rounded-md text-[color:var(--marine-blue)] focus:outline-none  focus:outline-[color:var(--pastel-blue)];
+}
+
+.btn-primary {
+  @apply mt-20 bg-[color:var(--marine-blue)] font-bold cursor-pointer px-5 py-3 text-white w-28 whitespace-nowrap ml-auto rounded-md;
+}
+
+.step-number {
+  @apply border-2 text-white  border-[color:var(--light-gray)] rounded-full flex items-center justify-center p-4 w-3 h-3;
+}
