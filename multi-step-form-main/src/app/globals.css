@@ -48,7 +48,7 @@ body {
 }
 
 .input {
-  @apply w-full cursor-pointer p-2 font-bold border border-gray-300 rounded-md text-[color:var(--marine-blue)] focus:outline-none  focus:outline-[color:var(--pastel-blue)];
+  @apply w-full cursor-pointer p-2 font-bold rounded-md text-[color:var(--marine-blue)] focus:outline-none  focus:border-[color:var(--purplish-blue)];
 }
 
 .btn-primary {

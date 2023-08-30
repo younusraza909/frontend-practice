@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { Switch } from '@/components/ui/switch';
 
 import { TiTick } from 'react-icons/ti';
@@ -51,30 +51,181 @@ const stepInfo = [
   },
 ];
 
-function YourInfo() {
+const InputText = ({ text }) => {
+  return (
+    <span className='text-sm text-[color:var(--strawberry-red)] font-bold'>
+      {text}
+    </span>
+  );
+};
+
+const YourInfo = forwardRef(({ onChangeStep }, ref) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const [error, setError] = useState({
+    nameError: false,
+    nameErrorText: '',
+
+    emailError: false,
+    emailErrorText: '',
+
+    phoneError: false,
+    phoneErrorText: '',
+  });
+
+  const validateInfo = () => {
+    let validate = true;
+    let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let phoneRegex = /^\+1\s\d{3}\s\d{3}\s\d{3}$/;
+
+    if (!name) {
+      validate = false;
+      setError((prev) => ({
+        ...prev,
+        nameError: true,
+        nameErrorText: 'The Field is required',
+      }));
+      return;
+    } else if (name.trim().length < 8) {
+      validate = false;
+      setError((prev) => ({
+        ...prev,
+        nameError: true,
+        nameErrorText: 'Name length should be greater than 8',
+      }));
+      return;
+    } else {
+      setError((prev) => ({
+        ...prev,
+        nameError: false,
+        nameErrorText: '',
+      }));
+    }
+
+    if (!email) {
+      validate = false;
+      setError((prev) => ({
+        ...prev,
+        emailError: true,
+        emailErrorText: 'Field is required',
+      }));
+      return;
+    } else if (!emailRegex.test(email.trim())) {
+      validate = false;
+      setError((prev) => ({
+        ...prev,
+        emailError: true,
+        emailErrorText: 'Invalid email format',
+      }));
+      return;
+    } else {
+      setError((prev) => ({
+        ...prev,
+        emailError: false,
+        emailErrorText: '',
+      }));
+    }
+
+    if (!phone) {
+      validate = false;
+      setError((prev) => ({
+        ...prev,
+        phoneError: true,
+        phoneErrorText: 'Field is required',
+      }));
+      return;
+    } else if (!phoneRegex.test(phone.trim())) {
+      validate = false;
+      setError((prev) => ({
+        ...prev,
+        phoneError: true,
+        phoneErrorText: 'Invalid phone format',
+      }));
+      return;
+    } else {
+      setError((prev) => ({
+        ...prev,
+        phoneError: false,
+        phoneErrorText: '',
+      }));
+    }
+
+    if (validate) {
+      onChangeStep();
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    childFunction: validateInfo,
+  }));
+
   return (
     <>
       <div className='w-full  mx-auto mb-10'>
-        <label className='input-label' for='name'>
-          Name
-        </label>
-        <input id='name' type='text' className='input' />
+        <div className='flex items-center justify-between'>
+          <label className='input-label' htmlFor='name'>
+            Name
+          </label>
+          {error.nameError && <InputText text={error?.nameErrorText} />}
+        </div>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          id='name'
+          type='text'
+          className={`input ${
+            error.nameError
+              ? 'border border-red-800'
+              : ' border border-gray-300'
+          }`}
+          placeholder='e.g.Stephen King'
+        />
       </div>
       <div className='w-full  mx-auto  mb-10'>
-        <label className='input-label' for='email'>
-          Email Address
-        </label>
-        <input id='email' type='text' className='input' />
+        <div className='flex items-center justify-between'>
+          <label className='input-label' htmlFor='email'>
+            Email Address
+          </label>
+          {error.emailError && <InputText text={error?.emailErrorText} />}
+        </div>
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          id='email'
+          type='text'
+          className={`input ${
+            error.emailError
+              ? 'border border-red-800'
+              : ' border border-gray-300'
+          }`}
+          placeholder='e.g.stephenking@gmail.com'
+        />
       </div>
       <div className='w-full  mx-auto  mb-10'>
-        <label className='input-label' for='phone'>
-          Phone Number
-        </label>
-        <input id='phone' type='text' className='input' />
+        <div className='flex items-center justify-between'>
+          <label className='input-label' htmlFor='phone'>
+            Phone Number
+          </label>
+          {error.phoneError && <InputText text={error?.phoneErrorText} />}
+        </div>
+        <input
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          id='phone'
+          type='text'
+          className={`input ${
+            error.phoneError
+              ? 'border border-red-800'
+              : ' border border-gray-300'
+          }`}
+          placeholder='e.g.+1 234 567 890'
+        />
       </div>
     </>
   );
-}
+});
 
 function SelectPlan() {
   const [isMonthly, setIsMonthly] = useState(false);
@@ -212,10 +363,17 @@ function Summary() {
 export default function Home() {
   const [step, setStep] = useState(1);
 
+  const userInfoRef = useRef(null);
+
   function renderComponent() {
     switch (step) {
       case 1:
-        return <YourInfo />;
+        return (
+          <YourInfo
+            ref={userInfoRef}
+            onChangeStep={() => setStep((prev) => prev + 1)}
+          />
+        );
       case 2:
         return <SelectPlan />;
 
@@ -229,17 +387,28 @@ export default function Home() {
     }
   }
 
+  function handleNextClick() {
+    switch (step) {
+      case 1:
+        userInfoRef && userInfoRef.current.childFunction();
+        break;
+      default:
+        break;
+    }
+  }
+
   const onBack = () => {
     setStep((value) => value - 1);
   };
 
   const onNext = () => {
-    setStep((value) => value + 1);
+    // setStep((value) => value + 1);
+    handleNextClick();
   };
 
   return (
     <main className='flex items-center justify-center h-[100vh] '>
-      <div className='form-box w-[70vw]  bg-white flex  h-[700px] p-4 rounded-md relative'>
+      <div className='form-box w-[70vw]  bg-white flex  h-[700px] p-4 rounded-md'>
         <div className='desktop-left-side flex-1'>
           <div className='w-full h-full m-9'>
             <div className='flex flex-col gap-10'>
@@ -267,6 +436,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
         <div className='desktop-right-side flex-[3]'>
           <div className='mx-32 my-16'>
             <h1 className='primary-heading'>
@@ -274,7 +444,8 @@ export default function Home() {
             </h1>
             <p className='sub-text'>{stepInfo[step - 1]?.secondaryHeading}</p>
             {renderComponent()}
-            <div className='mt-20 flex items-center w-[700px] absolute bottom-10'>
+
+            <div className='mt-20 flex items-center'>
               {step !== 1 && (
                 <div className='btn-secondary' onClick={onBack}>
                   Go Back
