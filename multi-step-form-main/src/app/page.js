@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import ToggleSwitch from './component/ToggleSwitch';
+import { Switch } from '@/components/ui/switch';
+
 import { TiTick } from 'react-icons/ti';
 
 let plans = [
@@ -76,13 +77,18 @@ function YourInfo() {
 }
 
 function SelectPlan() {
+  const [isMonthly, setIsMonthly] = useState(false);
+
   return (
     <div>
       <div className='flex  items-center justify-between'>
         {plans &&
           plans.length &&
-          plans.map((plan) => (
-            <div className='w-[200px] h-[250px] cursor-pointer rounded-md p-4 hover:bg-[color:var(--light-blue)] hover:border-[color:var(--purplish-blue)] border-[1px] flex flex-col justify-between gap-10'>
+          plans.map((plan, index) => (
+            <div
+              key={index}
+              className='w-[200px] h-[250px] cursor-pointer rounded-md p-4 hover:bg-[color:var(--light-blue)] hover:border-[color:var(--purplish-blue)] border-[1px] flex flex-col justify-between gap-10'
+            >
               <div className='w-14 h-14 relative'>
                 <Image src={plan.image} fill />
               </div>
@@ -96,6 +102,14 @@ function SelectPlan() {
               </div>
             </div>
           ))}
+      </div>
+      <div className='flex bg-[color:var(--light-blue)] gap-5 text-sm items-center mt-4 p-2 justify-center'>
+        <p>Monthly</p>
+        <Switch
+          checked={isMonthly}
+          onCheckedChange={() => setIsMonthly(!isMonthly)}
+        />
+        <p>Yearly</p>
       </div>
     </div>
   );
@@ -230,7 +244,7 @@ export default function Home() {
           <div className='w-full h-full m-9'>
             <div className='flex flex-col gap-10'>
               {stepInfo.map((s, index) => (
-                <div className='flex items-center gap-5'>
+                <div className='flex items-center gap-5' key={index}>
                   <div
                     className={`step-number ${
                       index + 1 === step
