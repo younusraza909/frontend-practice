@@ -6,27 +6,6 @@ import { Switch } from '@/components/ui/switch';
 
 import { TiTick } from 'react-icons/ti';
 
-let plans = [
-  {
-    image: '/images/icon-arcade.svg',
-    title: 'Arcade',
-    monthlyRate: 9,
-    yearlyRate: 0,
-  },
-  {
-    image: '/images/icon-advanced.svg',
-    title: 'Advanced',
-    monthlyRate: 12,
-    yearlyRate: 0,
-  },
-  {
-    image: '/images/icon-pro.svg',
-    title: 'Pro',
-    monthlyRate: 15,
-    yearlyRate: 0,
-  },
-];
-
 const stepInfo = [
   {
     title: 'Your Info',
@@ -60,9 +39,9 @@ const InputText = ({ text }) => {
 };
 
 const YourInfo = forwardRef(({ onChangeStep }, ref) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [name, setName] = useState('Stephen King');
+  const [email, setEmail] = useState('stephenking@gmail.com');
+  const [phone, setPhone] = useState('+1 234 567 890');
 
   const [error, setError] = useState({
     nameError: false,
@@ -227,18 +206,80 @@ const YourInfo = forwardRef(({ onChangeStep }, ref) => {
   );
 });
 
-function SelectPlan() {
+const SelectPlan = forwardRef(({ onChangeStep }, ref) => {
   const [isMonthly, setIsMonthly] = useState(false);
+
+  const [error, setError] = useState({
+    isError: false,
+    isErrorText: '',
+  });
+
+  console.log('error', error);
+
+  const [plans, setPlans] = useState([
+    {
+      selected: false,
+      image: '/images/icon-arcade.svg',
+      title: 'Arcade',
+      monthlyRate: 9,
+      yearlyRate: 90,
+    },
+    {
+      selected: false,
+      image: '/images/icon-advanced.svg',
+      title: 'Advanced',
+      monthlyRate: 12,
+      yearlyRate: 12,
+    },
+    {
+      selected: false,
+      image: '/images/icon-pro.svg',
+      title: 'Pro',
+      monthlyRate: 15,
+      yearlyRate: 15,
+    },
+  ]);
+
+  const validateInfo = () => {
+    let selected = plans.filter((p) => p.selected);
+
+    if (selected.length !== 0) {
+      onChangeStep();
+    } else {
+      setError((prev) => ({
+        ...prev,
+        isError: true,
+        isErrorText: 'You have to choose plan',
+      }));
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    childFunction: validateInfo,
+  }));
+
+  function handleSelect(i) {
+    setPlans((prev) =>
+      prev.map((pre, index) =>
+        index === i ? { ...pre, selected: !pre.selected } : { ...pre }
+      )
+    );
+  }
 
   return (
     <div>
+      {error.isError && <InputText text={error.isErrorText} />}
       <div className='flex  items-center justify-between'>
         {plans &&
           plans.length &&
           plans.map((plan, index) => (
             <div
+              onClick={() => handleSelect(index)}
               key={index}
-              className='w-[200px] h-[250px] cursor-pointer rounded-md p-4 hover:bg-[color:var(--light-blue)] hover:border-[color:var(--purplish-blue)] border-[1px] flex flex-col justify-between gap-10'
+              className={`w-[200px] h-[250px] cursor-pointer rounded-md p-4 hover:bg-[color:var(--light-blue)] hover:border-[color:var(--purplish-blue)] ${
+                plan.selected &&
+                'bg-[color:var(--light-blue)] border-[color:var(--purplish-blue)]'
+              } border-[1px] flex flex-col justify-between gap-10`}
             >
               <div className='w-14 h-14 relative'>
                 <Image src={plan.image} fill />
@@ -248,23 +289,32 @@ function SelectPlan() {
                   {plan.title}
                 </h3>
                 <span className='text-[color:var(--light-gray)] text-md'>
-                  ${plan.monthlyRate}/mo
+                  {isMonthly
+                    ? `${plan.monthlyRate}/mo`
+                    : `${plan.yearlyRate}/yr`}
+
+                  {!isMonthly && (
+                    <p className='text-sm text-[color:var(--marine-blue)]'>
+                      2 months free
+                    </p>
+                  )}
                 </span>
               </div>
             </div>
           ))}
       </div>
       <div className='flex bg-[color:var(--light-blue)] gap-5 text-sm items-center mt-4 p-2 justify-center'>
-        <p>Monthly</p>
+        <p>Yearly</p>
+
         <Switch
           checked={isMonthly}
           onCheckedChange={() => setIsMonthly(!isMonthly)}
         />
-        <p>Yearly</p>
+        <p>Monthly</p>
       </div>
     </div>
   );
-}
+});
 
 function AddOns() {
   const [addOns, setAddOns] = useState([
@@ -364,6 +414,7 @@ export default function Home() {
   const [step, setStep] = useState(1);
 
   const userInfoRef = useRef(null);
+  const planRef = useRef(null);
 
   function renderComponent() {
     switch (step) {
@@ -375,7 +426,12 @@ export default function Home() {
           />
         );
       case 2:
-        return <SelectPlan />;
+        return (
+          <SelectPlan
+            ref={planRef}
+            onChangeStep={() => setStep((prev) => prev + 1)}
+          />
+        );
 
       case 3:
         return <AddOns />;
@@ -393,6 +449,7 @@ export default function Home() {
         userInfoRef && userInfoRef.current.childFunction();
         break;
       default:
+        planRef && planRef.current.childFunction();
         break;
     }
   }
