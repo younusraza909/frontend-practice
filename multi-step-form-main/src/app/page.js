@@ -214,8 +214,6 @@ const SelectPlan = forwardRef(({ onChangeStep }, ref) => {
     isErrorText: '',
   });
 
-  console.log('error', error);
-
   const [plans, setPlans] = useState([
     {
       selected: false,
@@ -316,7 +314,7 @@ const SelectPlan = forwardRef(({ onChangeStep }, ref) => {
   );
 });
 
-function AddOns() {
+const AddOns = forwardRef(({ onChangeStep }, ref) => {
   const [addOns, setAddOns] = useState([
     {
       selected: false,
@@ -340,12 +338,39 @@ function AddOns() {
       yearlyPrice: 20,
     },
   ]);
+
+  const validateInfo = () => {
+    onChangeStep();
+  };
+
+  useImperativeHandle(ref, () => ({
+    childFunction: validateInfo,
+  }));
+
+  function handleSelect(index) {
+    setAddOns((prev) =>
+      prev.map((p, i) =>
+        i === index ? { ...p, selected: !p.selected } : { ...p }
+      )
+    );
+  }
+
   return (
     <div className='flex flex-col gap-6'>
       {addOns &&
-        addOns.map((add) => (
-          <div className='flex items-center gap-5 border-[1px] border-[color:var(--pastel-blue)] p-7 py-3 cursor-pointer rounded-lg'>
-            <div className='w-5 h-5 rounded-md bg-[color:var(--purplish-blue)] border-[1px] border-gray-400 flex items-center justify-center'>
+        addOns.map((add, index) => (
+          <div
+            className={`flex items-center gap-5 border-[1px] ${
+              add.selected &&
+              'border-[color:var(--marine-blue)] bg-[color:var(--light-blue)]'
+            }  p-7 py-3 cursor-pointer rounded-lg`}
+          >
+            <div
+              onClick={() => handleSelect(index)}
+              className={`w-5 h-5 ${
+                add.selected ? 'bg-[color:var(--purplish-blue)]' : 'bg-white'
+              } rounded-md border-[1px] border-gray-400 flex items-center justify-center`}
+            >
               <TiTick color='white' />
             </div>
             <div>
@@ -365,7 +390,7 @@ function AddOns() {
         ))}
     </div>
   );
-}
+});
 
 function Summary() {
   return (
@@ -415,6 +440,7 @@ export default function Home() {
 
   const userInfoRef = useRef(null);
   const planRef = useRef(null);
+  const addOnRef = useRef(null);
 
   function renderComponent() {
     switch (step) {
@@ -434,7 +460,12 @@ export default function Home() {
         );
 
       case 3:
-        return <AddOns />;
+        return (
+          <AddOns
+            ref={addOnRef}
+            onChangeStep={() => setStep((prev) => prev + 1)}
+          />
+        );
 
       case 4:
         return <Summary />;
@@ -448,8 +479,13 @@ export default function Home() {
       case 1:
         userInfoRef && userInfoRef.current.childFunction();
         break;
-      default:
+      case 2:
         planRef && planRef.current.childFunction();
+        break;
+      case 3:
+        addOnRef && addOnRef.current.childFunction();
+        break;
+      default:
         break;
     }
   }
