@@ -60,5 +60,5 @@ body {
 }
 
 .step-number {
-  @apply border-2 text-white  border-[color:var(--light-gray)] rounded-full flex items-center justify-center p-4 w-3 h-3;
+  @apply border-2   border-[color:var(--light-gray)] rounded-full flex items-center justify-center p-4 w-3 h-3;
 }

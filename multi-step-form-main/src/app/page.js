@@ -231,7 +231,15 @@ export default function Home() {
             <div className='flex flex-col gap-10'>
               {stepInfo.map((s, index) => (
                 <div className='flex items-center gap-5'>
-                  <div className={`step-number`}>{index + 1}</div>
+                  <div
+                    className={`step-number ${
+                      index + 1 === step
+                        ? 'text-black bg-[color:var(--pastel-blue)]'
+                        : 'text-white'
+                    }`}
+                  >
+                    {index + 1}
+                  </div>
                   <div className='flex flex-col'>
                     <p className='text-[color:var(--light-gray)] text-md'>
                       STEP {index + 1}
