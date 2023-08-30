@@ -7,7 +7,7 @@
   --marine-blue: hsl(213, 96%, 18%);
   --purplish-blue: hsl(243, 100%, 62%);
   --pastel-blue: hsl(228, 100%, 84%);
-  --light-blue: hsl(206, 94%, 87%);
+  --light-blue: hsl(206, 94%, 87%, 0.1);
   --strawberry-red: hsl(354, 84%, 57%);
 
   /* Neutral Colors */
@@ -52,7 +52,11 @@ body {
 }
 
 .btn-primary {
-  @apply mt-20 bg-[color:var(--marine-blue)] font-bold cursor-pointer px-5 py-3 text-white w-28 whitespace-nowrap ml-auto rounded-md;
+  @apply bg-[color:var(--purplish-blue)] ml-auto font-bold cursor-pointer px-5 py-3 text-white  whitespace-nowrap rounded-md;
+}
+
+.btn-secondary {
+  @apply bg-white cursor-pointer hover:text-[color:var(--marine-blue)];
 }
 
 .step-number {
