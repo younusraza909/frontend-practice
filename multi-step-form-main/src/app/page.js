@@ -1,7 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useState,
+  useReducer,
+  useEffect,
+} from 'react';
 import { Switch } from '@/components/ui/switch';
 
 import { TiTick } from 'react-icons/ti';
@@ -38,10 +45,10 @@ const InputText = ({ text }) => {
   );
 };
 
-const YourInfo = forwardRef(({ onChangeStep }, ref) => {
-  const [name, setName] = useState('Stephen King');
-  const [email, setEmail] = useState('stephenking@gmail.com');
-  const [phone, setPhone] = useState('+1 234 567 890');
+const YourInfo = forwardRef(({ dispatch, state }, ref) => {
+  const [name, setName] = useState(state?.info?.name || '');
+  const [email, setEmail] = useState(state?.info?.email || '');
+  const [phone, setPhone] = useState(state?.info?.phone || '');
 
   const [error, setError] = useState({
     nameError: false,
@@ -132,7 +139,7 @@ const YourInfo = forwardRef(({ onChangeStep }, ref) => {
     }
 
     if (validate) {
-      onChangeStep();
+      dispatch({ type: 'info', payload: { name, email, phone } });
     }
   };
 
@@ -206,8 +213,8 @@ const YourInfo = forwardRef(({ onChangeStep }, ref) => {
   );
 });
 
-const SelectPlan = forwardRef(({ onChangeStep }, ref) => {
-  const [isMonthly, setIsMonthly] = useState(false);
+const SelectPlan = forwardRef(({ dispatch, state }, ref) => {
+  const [isMonthly, setIsMonthly] = useState(state?.plan?.isMonthly || false);
 
   const [error, setError] = useState({
     isError: false,
@@ -238,11 +245,27 @@ const SelectPlan = forwardRef(({ onChangeStep }, ref) => {
     },
   ]);
 
+  useEffect(() => {
+    if (state?.plan?.selectedPlan) {
+      let copy = [...plans];
+      copy = copy.map((c) =>
+        c.title === state?.plan?.selectedPlan?.title
+          ? { ...state?.plan?.selectedPlan }
+          : { ...c }
+      );
+
+      setPlans(copy);
+    }
+  }, []);
+
   const validateInfo = () => {
     let selected = plans.filter((p) => p.selected);
 
     if (selected.length !== 0) {
-      onChangeStep();
+      dispatch({
+        type: 'plan',
+        payload: { isMonthly, selectedPlan: selected[0] },
+      });
     } else {
       setError((prev) => ({
         ...prev,
@@ -314,7 +337,7 @@ const SelectPlan = forwardRef(({ onChangeStep }, ref) => {
   );
 });
 
-const AddOns = forwardRef(({ onChangeStep }, ref) => {
+const AddOns = forwardRef(({ dispatch, state }, ref) => {
   const [addOns, setAddOns] = useState([
     {
       selected: false,
@@ -339,8 +362,26 @@ const AddOns = forwardRef(({ onChangeStep }, ref) => {
     },
   ]);
 
+  useEffect(() => {
+    if (state?.addsOn) {
+      const updatedLocalAddOns = addOns.map((localAddOn) => {
+        const matchingReduxAddOn = state?.addsOn.find(
+          (reduxAddOn) => reduxAddOn.title === localAddOn.title
+        );
+
+        if (matchingReduxAddOn) {
+          return { ...localAddOn, selected: true };
+        }
+        return localAddOn;
+      });
+
+      setAddOns(updatedLocalAddOns);
+    }
+  }, []);
+
   const validateInfo = () => {
-    onChangeStep();
+    let selectedAdd = addOns.filter((add) => add.selected);
+    dispatch({ type: 'addsOn', payload: selectedAdd });
   };
 
   useImperativeHandle(ref, () => ({
@@ -435,37 +476,53 @@ function Summary() {
   );
 }
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'info':
+      return { ...state, info: action.payload, step: state.step + 1 };
+    case 'plan':
+      return { ...state, plan: action.payload, step: state.step + 1 };
+    case 'addsOn':
+      return { ...state, addsOn: action.payload, step: state.step + 1 };
+    case 'increaseStep':
+      return { ...state, step: state.step + 1 };
+    case 'decreaseStep':
+      return { ...state, step: state.step - 1 };
+    default:
+      return state;
+  }
+};
+
+const intialState = {
+  step: 1,
+  info: {
+    name: '',
+    email: '',
+    phone: '',
+  },
+  plan: {
+    isMonthly: true,
+    selectedPlan: null,
+  },
+  addsOn: null,
+};
+
 export default function Home() {
-  const [step, setStep] = useState(1);
+  const [state, dispatch] = useReducer(reducer, intialState);
 
   const userInfoRef = useRef(null);
   const planRef = useRef(null);
   const addOnRef = useRef(null);
 
   function renderComponent() {
-    switch (step) {
+    switch (state?.step) {
       case 1:
-        return (
-          <YourInfo
-            ref={userInfoRef}
-            onChangeStep={() => setStep((prev) => prev + 1)}
-          />
-        );
+        return <YourInfo ref={userInfoRef} dispatch={dispatch} state={state} />;
       case 2:
-        return (
-          <SelectPlan
-            ref={planRef}
-            onChangeStep={() => setStep((prev) => prev + 1)}
-          />
-        );
+        return <SelectPlan ref={planRef} dispatch={dispatch} state={state} />;
 
       case 3:
-        return (
-          <AddOns
-            ref={addOnRef}
-            onChangeStep={() => setStep((prev) => prev + 1)}
-          />
-        );
+        return <AddOns ref={addOnRef} dispatch={dispatch} state={state} />;
 
       case 4:
         return <Summary />;
@@ -475,7 +532,7 @@ export default function Home() {
   }
 
   function handleNextClick() {
-    switch (step) {
+    switch (state?.step) {
       case 1:
         userInfoRef && userInfoRef.current.childFunction();
         break;
@@ -491,11 +548,10 @@ export default function Home() {
   }
 
   const onBack = () => {
-    setStep((value) => value - 1);
+    dispatch({ type: 'decreaseStep' });
   };
 
   const onNext = () => {
-    // setStep((value) => value + 1);
     handleNextClick();
   };
 
@@ -509,7 +565,7 @@ export default function Home() {
                 <div className='flex items-center gap-5' key={index}>
                   <div
                     className={`step-number ${
-                      index + 1 === step
+                      index + 1 === state?.step
                         ? 'text-black bg-[color:var(--pastel-blue)]'
                         : 'text-white'
                     }`}
@@ -533,13 +589,15 @@ export default function Home() {
         <div className='desktop-right-side flex-[3]'>
           <div className='mx-32 my-16'>
             <h1 className='primary-heading'>
-              {stepInfo[step - 1]?.primaryHeading}
+              {stepInfo[state?.step - 1]?.primaryHeading}
             </h1>
-            <p className='sub-text'>{stepInfo[step - 1]?.secondaryHeading}</p>
+            <p className='sub-text'>
+              {stepInfo[state?.step - 1]?.secondaryHeading}
+            </p>
             {renderComponent()}
 
             <div className='mt-20 flex items-center'>
-              {step !== 1 && (
+              {state?.step !== 1 && (
                 <div className='btn-secondary' onClick={onBack}>
                   Go Back
                 </div>
