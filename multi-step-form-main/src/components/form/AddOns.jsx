@@ -32,6 +32,8 @@ const AddOns = forwardRef(({ dispatch, state }, ref) => {
     },
   ]);
 
+  let isMonthly = state?.plan?.isMonthly;
+
   useEffect(() => {
     if (state?.addsOn) {
       const updatedLocalAddOns = addOns.map((localAddOn) => {
@@ -94,7 +96,9 @@ const AddOns = forwardRef(({ dispatch, state }, ref) => {
             </div>
             <div className='ml-auto'>
               <span className='text-[color:var(--marine-blue)]'>
-                +${add?.monthlyPrice}/mo
+                {isMonthly
+                  ? ` +${add?.monthlyPrice}/mo`
+                  : ` +${add?.yearlyPrice}/yr`}
               </span>
             </div>
           </div>

@@ -5,6 +5,8 @@ import { useRef, useReducer } from 'react';
 import YourInfo from '@/components/form/YourInfo';
 import SelectPlan from '@/components/form/SelectPlan';
 import AddOns from '@/components/form/AddOns';
+import Summary from '@/components/form/Summary';
+import Greet from '@/components/Greet';
 
 const stepInfo = [
   {
@@ -30,49 +32,6 @@ const stepInfo = [
   },
 ];
 
-function Summary() {
-  return (
-    <div className='text-gray-400'>
-      <div className='flex flex-col gap-4 bg-[color:var(--light-blue)] p-7'>
-        <div className='flex items-center justify-between'>
-          <div>
-            <h3 className='font-bold text-lg text-[color:var(--marine-blue)] tracking-wide'>
-              Arcade (monthly)
-            </h3>
-            <a className='text-md text-gray-400 underline cursor-pointer'>
-              Change
-            </a>
-          </div>
-          <p className='font-bold text-lg text-[color:var(--marine-blue)]'>
-            $9/mo
-          </p>
-        </div>
-        <hr className='mt-4 mb-2' />
-        <div className='flex items-center justify-between'>
-          <div>
-            <h3>Online service</h3>
-          </div>
-          <p className='text-[color:var(--marine-blue)]'>+$1/mo</p>
-        </div>{' '}
-        <div className='flex items-center justify-between'>
-          <div>
-            <h3>Larger storage</h3>
-          </div>
-          <p className='text-[color:var(--marine-blue)]'>+$1/mo</p>
-        </div>
-      </div>
-      <div className='flex items-center justify-between'>
-        <div>
-          <h3>Total (per month)</h3>
-        </div>
-        <p className='text-[color:var(--purplish-blue)] font-bold text-2xl mt-7'>
-          +$12/mo
-        </p>
-      </div>
-    </div>
-  );
-}
-
 const reducer = (state, action) => {
   switch (action.type) {
     case 'info':
@@ -85,6 +44,16 @@ const reducer = (state, action) => {
       return { ...state, step: state.step + 1 };
     case 'decreaseStep':
       return { ...state, step: state.step - 1 };
+    case 'switchPlan':
+      return {
+        ...state,
+        plan: { ...state?.plan, isMonthly: !state?.plan?.isMonthly },
+      };
+    case 'finishedCheckout':
+      return {
+        ...state,
+        finishedCheckout: true,
+      };
     default:
       return state;
   }
@@ -93,15 +62,16 @@ const reducer = (state, action) => {
 const intialState = {
   step: 1,
   info: {
-    name: '',
-    email: '',
-    phone: '',
+    name: 'Stephen King',
+    email: 'stephenking@gmail.com',
+    phone: '+1 234 567 890',
   },
   plan: {
     isMonthly: true,
     selectedPlan: null,
   },
   addsOn: null,
+  finishedCheckout: true,
 };
 
 export default function Home() {
@@ -110,6 +80,8 @@ export default function Home() {
   const userInfoRef = useRef(null);
   const planRef = useRef(null);
   const addOnRef = useRef(null);
+
+  const summaryRef = useRef(null);
 
   function renderComponent() {
     switch (state?.step) {
@@ -122,7 +94,7 @@ export default function Home() {
         return <AddOns ref={addOnRef} dispatch={dispatch} state={state} />;
 
       case 4:
-        return <Summary />;
+        return <Summary ref={summaryRef} dispatch={dispatch} state={state} />;
       default:
         break;
     }
@@ -139,6 +111,8 @@ export default function Home() {
       case 3:
         addOnRef && addOnRef.current.childFunction();
         break;
+      case 4:
+        summaryRef && summaryRef.current.childFunction();
       default:
         break;
     }
@@ -183,26 +157,32 @@ export default function Home() {
           </div>
         </div>
 
-        <div className='desktop-right-side flex-[3]'>
-          <div className='mx-32 my-16'>
-            <h1 className='primary-heading'>
-              {stepInfo[state?.step - 1]?.primaryHeading}
-            </h1>
-            <p className='sub-text'>
-              {stepInfo[state?.step - 1]?.secondaryHeading}
-            </p>
-            {renderComponent()}
+        <div className='desktop-right-side flex-[3] '>
+          <div className='mx-32 my-16 h-full '>
+            {state?.finishedCheckout ? (
+              <Greet />
+            ) : (
+              <>
+                <h1 className='primary-heading'>
+                  {stepInfo[state?.step - 1]?.primaryHeading}
+                </h1>
+                <p className='sub-text'>
+                  {stepInfo[state?.step - 1]?.secondaryHeading}
+                </p>
+                {renderComponent()}
 
-            <div className='mt-20 flex items-center'>
-              {state?.step !== 1 && (
-                <div className='btn-secondary' onClick={onBack}>
-                  Go Back
+                <div className='mt-20 flex items-center'>
+                  {state?.step !== 1 && (
+                    <div className='btn-secondary' onClick={onBack}>
+                      Go Back
+                    </div>
+                  )}
+                  <div className='btn-primary' onClick={onNext}>
+                    Next Step
+                  </div>
                 </div>
-              )}
-              <div className='btn-primary' onClick={onNext}>
-                Next Step
-              </div>
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>
