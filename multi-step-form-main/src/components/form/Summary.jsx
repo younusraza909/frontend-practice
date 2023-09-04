@@ -28,17 +28,17 @@ const Summary = forwardRef(({ dispatch, state }, ref) => {
       <div className='flex flex-col gap-4 bg-[color:var(--light-blue)] p-7'>
         <div className='flex items-center justify-between'>
           <div>
-            <h3 className='font-bold text-lg text-[color:var(--marine-blue)] tracking-wide'>
+            <h3 className='font-bold max-lg:text-base text-lg text-[color:var(--marine-blue)] tracking-wide'>
               {plan?.title} {isMonthly ? `(monthly)` : `(yearly)`}
             </h3>
             <a
-              className='text-md text-gray-400 underline cursor-pointer'
+              className='text-gray-400 underline cursor-pointer max-lg:text-sm'
               onClick={() => dispatch({ type: 'switchPlan' })}
             >
               Change
             </a>
           </div>
-          <p className='font-bold text-lg text-[color:var(--marine-blue)]'>
+          <p className='font-bold text-lg text-[color:var(--marine-blue)] max-lg:text-base'>
             {`$${planRate}/${isMonthly ? 'mo' : 'yr'}`}
           </p>
         </div>
@@ -50,20 +50,20 @@ const Summary = forwardRef(({ dispatch, state }, ref) => {
             return (
               <div className='flex items-center justify-between'>
                 <div>
-                  <h3>{add?.title}</h3>
+                  <h3 className='max-lg:text-sm'>{add?.title}</h3>
                 </div>
-                <p className='text-[color:var(--marine-blue)]'>{`+$${addRate}/${
+                <p className='text-[color:var(--marine-blue)] max-lg:text-sm'>{`+$${addRate}/${
                   isMonthly ? 'mo' : 'yr'
                 }`}</p>
               </div>
             );
           })}
       </div>
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center justify-between max-lg:text-sm'>
         <div>
           <h3>Total (per month)</h3>
         </div>
-        <p className='text-[color:var(--purplish-blue)] font-bold text-2xl mt-7'>
+        <p className='text-[color:var(--purplish-blue)] max-lg:text-lg font-bold text-2xl mt-7'>
           {`+$${total}/${isMonthly ? 'mo' : 'yr'}`}
         </p>
       </div>

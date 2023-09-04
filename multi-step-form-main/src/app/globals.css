@@ -52,7 +52,7 @@ body {
 }
 
 .btn-primary {
-  @apply bg-[color:var(--purplish-blue)] ml-auto font-bold cursor-pointer px-5 py-3 text-white  whitespace-nowrap rounded-md;
+  @apply bg-[color:var(--purplish-blue)] ml-auto font-bold cursor-pointer px-5 py-3 max-lg:text-sm max-lg:px-4 max-lg:py-2 text-white  whitespace-nowrap rounded-md;
 }
 
 .btn-secondary {

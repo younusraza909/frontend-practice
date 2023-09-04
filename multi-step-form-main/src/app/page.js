@@ -71,7 +71,7 @@ const intialState = {
     selectedPlan: null,
   },
   addsOn: null,
-  finishedCheckout: true,
+  finishedCheckout: false,
 };
 
 export default function Home() {
@@ -143,11 +143,11 @@ export default function Home() {
                   >
                     {index + 1}
                   </div>
-                  <div className='flex flex-col'>
+                  <div className='flex flex-col max-xl:text-sm'>
                     <p className='text-[color:var(--light-gray)] text-md'>
                       STEP {index + 1}
                     </p>
-                    <p className='text-white  text-lg font-bold tracking-wider'>
+                    <p className='text-white  max-xl:text-sm  text-lg font-bold tracking-wider'>
                       {s.title}
                     </p>
                   </div>
@@ -157,8 +157,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className='desktop-right-side flex-[3] '>
-          <div className='mx-32 my-16 h-full '>
+        <div className='desktop-right-side flex-[3]'>
+          <div className='mx-32 max-xl:mx-10 max-xl:my-5 my-16 h-full '>
             {state?.finishedCheckout ? (
               <Greet />
             ) : (

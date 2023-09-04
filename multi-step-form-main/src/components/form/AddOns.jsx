@@ -69,7 +69,7 @@ const AddOns = forwardRef(({ dispatch, state }, ref) => {
   }
 
   return (
-    <div className='flex flex-col gap-6'>
+    <div className='flex flex-col gap-6 max-lg:gap-3'>
       {addOns &&
         addOns.map((add, index) => (
           <div
@@ -87,15 +87,15 @@ const AddOns = forwardRef(({ dispatch, state }, ref) => {
               <TiTick color='white' />
             </div>
             <div>
-              <h1 className='font-bold text-xl tracking-wider text-[color:var(--marine-blue)]'>
+              <h1 className='font-bold max-lg:text-lg text-xl tracking-wider text-[color:var(--marine-blue)]'>
                 {add?.title}
               </h1>
-              <p className='text-gray-400 tracking-wider text-lg'>
+              <p className='text-gray-400 tracking-wider max-lg:text-sm text-lg'>
                 {add?.description}
               </p>
             </div>
             <div className='ml-auto'>
-              <span className='text-[color:var(--marine-blue)]'>
+              <span className='text-[color:var(--marine-blue)] max-lg:text-sm'>
                 {isMonthly
                   ? ` +${add?.monthlyPrice}/mo`
                   : ` +${add?.yearlyPrice}/yr`}
