@@ -127,19 +127,18 @@ export default function Home() {
   };
 
   return (
-    <main className='flex items-center justify-center h-[100vh] '>
-      <div className='form-box w-[70vw]  bg-white flex  h-[700px] p-4 rounded-md'>
-        <div className='desktop-left-side flex-1'>
+    <main className='flex items-center justify-center h-[100vh] relative'>
+      <div className='form-box w-[70vw] max-md:-mt-20 bg-white flex  h-[700px] p-4 rounded-md max-md:h-[550px] '>
+        <div className='desktop-left-side flex-1 max-md:hidden'>
           <div className='w-full h-full m-9'>
             <div className='flex flex-col gap-10'>
               {stepInfo.map((s, index) => (
                 <div className='flex items-center gap-5' key={index}>
                   <div
-                    className={`step-number ${
-                      index + 1 === state?.step
-                        ? 'text-black bg-[color:var(--pastel-blue)]'
-                        : 'text-white'
-                    }`}
+                    className={`step-number ${index + 1 === state?.step
+                      ? 'text-black bg-[color:var(--pastel-blue)]'
+                      : 'text-white'
+                      }`}
                   >
                     {index + 1}
                   </div>
@@ -157,6 +156,23 @@ export default function Home() {
           </div>
         </div>
 
+        <div className='md:hidden desktop-mobile-top h-52 w-full absolute top-0 left-0 right-0 -z-10'>
+          <div className='flex gap-10 items-center justify-center h-full'>
+            {stepInfo.map((s, index) => (
+              <div className='flex items-center gap-5' key={index}>
+                <div
+                  className={`step-number-mobile ${index + 1 === state?.step
+                    ? 'text-black bg-[color:var(--pastel-blue)]'
+                    : 'text-white'
+                    }`}
+                >
+                  {index + 1}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className='desktop-right-side flex-[3]'>
           <div className='mx-32 max-xl:mx-10 max-xl:my-5 my-16 h-full '>
             {state?.finishedCheckout ? (
@@ -171,7 +187,7 @@ export default function Home() {
                 </p>
                 {renderComponent()}
 
-                <div className='mt-20 flex items-center'>
+                <div className='mt-20 flex items-center max-md:hidden'>
                   {state?.step !== 1 && (
                     <div className='btn-secondary' onClick={onBack}>
                       Go Back
@@ -184,6 +200,16 @@ export default function Home() {
               </>
             )}
           </div>
+        </div>
+      </div>
+      <div className='absolute bottom-0 left-0 right-0 h-10 py-10 px-10 bg-[color:var(--magnolia)] flex items-center md:hidden'>
+        {state?.step !== 1 && (
+          <div className='btn-secondary' onClick={onBack}>
+            Go Back
+          </div>
+        )}
+        <div className='btn-primary' onClick={onNext}>
+          Next Step
         </div>
       </div>
     </main>
