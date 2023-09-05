@@ -85,19 +85,19 @@ const SelectPlan = forwardRef(({ dispatch, state }, ref) => {
   return (
     <div>
       {error.isError && <InputText text={error.isErrorText} />}
-      <div className='flex  items-center justify-between'>
+      <div className='flex max-xl:flex-col  gap-5 justify-between  items-center'>
         {plans &&
           plans.length &&
           plans.map((plan, index) => (
             <div
               onClick={() => handleSelect(index)}
               key={index}
-              className={`w-[200px] h-[250px] cursor-pointer rounded-md p-4 hover:bg-[color:var(--light-blue)] hover:border-[color:var(--purplish-blue)] ${
+              className={`w-[170px] h-[200px] cursor-pointer rounded-md p-4 hover:bg-[color:var(--light-blue)] hover:border-[color:var(--purplish-blue)] ${
                 plan.selected &&
                 'bg-[color:var(--light-blue)] border-[color:var(--purplish-blue)]'
-              } border-[1px] flex flex-col justify-between gap-10`}
+              } border-[1px] flex flex-col justify-between max-xl:flex-row max-xl:gap-5 max-xl:w-full max-xl:h-auto max-xl:justify-start`}
             >
-              <div className='w-14 h-14 relative'>
+              <div className='w-10 h-10 relative'>
                 <Image src={plan.image} fill />
               </div>
               <div>
